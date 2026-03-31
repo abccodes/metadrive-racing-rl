@@ -1,0 +1,25 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Local experiment artifacts
+benchmark_results/
+checkpoints/
+logs/
+
+# Local reports / exports
+FINAL_REPORT.md
+agents/FINAL_AGENT/
+agents/*.zip
+*.pdf
+
+# Large model artifacts
+*.pt
+*.pth
+*.ckpt
+*.zip
+
+# Environment / editor noise
+.env
+.venv/
+.python-version
