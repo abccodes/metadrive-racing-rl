@@ -2,9 +2,13 @@
 
 Reinforcement learning experiments for multi-agent racing in the MetaDrive environment, focused on training a competitive continuous-control racing policy and evaluating it against scripted and learned opponents.
 
+This project is built around the MetaDrive / MetaDrive Arena ecosystem:
+
+- MetaDrive Arena: https://github.com/VAIL-UCLA/MetaDrive-Arena
+
 ## Project Summary
 
-This repository contains a full experimental pipeline for training and evaluating racing agents in MetaDrive. The core direction that worked best was:
+This repository contains a full experimental pipeline for training and evaluating racing agents in MetaDrive. The final approach in this repository placed 5th out of 70 students in the course competition. The core direction that worked best was:
 
 - PPO as the base algorithm
 - server-map specialization instead of broad map generalization
