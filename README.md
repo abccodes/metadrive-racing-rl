@@ -20,20 +20,46 @@ The repository includes:
 - opponent-pool and self-play infrastructure
 - utilities for exporting self-contained submission agents
 
-## Key Results
+## PPO Objective
 
-The strongest local agent in this repository was a track-guided, launch-wrapped PPO policy trained on reconstructed evaluation-style maps.
+This project uses Proximal Policy Optimization as the base training algorithm. PPO was kept as the main optimizer because the largest gains came from better task formulation, reward shaping, and evaluation rather than from replacing the algorithm itself.
 
-| Stage | Local `server + learned` win rate | Arrival rate | Speed@100 | Mean arrival step |
-| --- | ---: | ---: | ---: | ---: |
-| Baseline PPO | 0.4417 | 0.6750 | — | — |
-| Tuned PPO | 0.5000 | 0.8500 | — | — |
-| Launch-wrapped PPO | 0.7333 | 0.8792 | 74.16 km/h | 754.44 |
-| Track-guided PPO | 0.7417 | 0.8708 | 76.04 km/h | 743.75 |
+The PPO policy ratio is:
 
-![Results Summary](assets/results_summary.svg)
+```math
+r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\mathrm{old}}}(a_t \mid s_t)}
+```
 
-## Training Pipeline
+The clipped PPO objective is:
+
+```math
+L^{\mathrm{CLIP}}(\theta) =
+\mathbb{E}_t \left[
+\min\left(
+r_t(\theta)\hat{A}_t,\;
+\mathrm{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t
+\right)
+\right]
+```
+
+The full optimization target also includes a value loss and an entropy bonus:
+
+```math
+L(\theta) =
+L^{\mathrm{CLIP}}(\theta)
+- c_v L^{\mathrm{VF}}(\theta)
++ c_e \mathbb{E}_t[\mathcal{H}(\pi_\theta(\cdot \mid s_t))]
+```
+
+In this repository, PPO was combined with:
+
+- larger actor / critic networks
+- linear learning-rate decay
+- low-entropy training for less hesitant control
+- pace-oriented reward shaping
+- track-guidance reward shaping during training
+
+## Workflow
 
 ```mermaid
 flowchart LR
@@ -149,45 +175,6 @@ The benchmark summaries include metrics such as:
 - `route@100`
 - `speed@100`
 - `arrival_step`
-
-## PPO Objective
-
-This project uses Proximal Policy Optimization as the base training algorithm. PPO was kept as the main optimizer because the largest gains came from better task formulation, reward shaping, and evaluation rather than from replacing the algorithm itself.
-
-The PPO policy ratio is:
-
-```math
-r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\mathrm{old}}}(a_t \mid s_t)}
-```
-
-The clipped PPO objective is:
-
-```math
-L^{\mathrm{CLIP}}(\theta) =
-\mathbb{E}_t \left[
-\min\left(
-r_t(\theta)\hat{A}_t,\;
-\mathrm{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t
-\right)
-\right]
-```
-
-The full optimization target also includes a value loss and an entropy bonus:
-
-```math
-L(\theta) =
-L^{\mathrm{CLIP}}(\theta)
-- c_v L^{\mathrm{VF}}(\theta)
-+ c_e \mathbb{E}_t[\mathcal{H}(\pi_\theta(\cdot \mid s_t))]
-```
-
-In this repository, PPO was combined with:
-
-- larger actor / critic networks
-- linear learning-rate decay
-- low-entropy training for less hesitant control
-- pace-oriented reward shaping
-- track-guidance reward shaping during training
 
 ## Local Evaluation
 
