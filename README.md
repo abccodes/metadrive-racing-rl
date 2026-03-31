@@ -1,6 +1,6 @@
 # MetaDrive Racing RL
 
-Reinforcement learning experiments for multi-agent racing in the MetaDrive environment, focused on training a competitive continuous-control racing policy and evaluating it against scripted and learned opponents.
+Reinforcement learning experiments for multi-agent racing in the MetaDrive environment, focused on training competitive continuous-control racing agents and evaluating them against scripted and learned opponents.
 
 This project is built around the MetaDrive / MetaDrive Arena ecosystem:
 
@@ -8,70 +8,39 @@ This project is built around the MetaDrive / MetaDrive Arena ecosystem:
 
 ## Project Summary
 
-This repository contains a full experimental pipeline for training and evaluating racing agents in MetaDrive. The final approach in this repository placed 5th out of 70 students in the course competition. The core direction that worked best was:
-
-- PPO as the base algorithm
-- server-map specialization instead of broad map generalization
-- pace-oriented reward shaping
-- a short launch wrapper to improve the opening phase of each race
-- track-guidance reward shaping during training to improve line quality and corner-speed preservation
+This repository contains a full training and evaluation pipeline for MetaDrive racing. The final approach in this repository placed 5th out of 70 students in the course competition.
 
 The repository includes:
 
 - local racing environments and map definitions
-- benchmark and evaluation tooling
+- reconstructed evaluation-style maps for local testing
+- PPO training and evaluation code
 - opponent-pool and self-play infrastructure
-- experiment scripts for major training branches
-- utilities to export trained checkpoints into self-contained submission agents
+- utilities for exporting self-contained submission agents
 
 ## Repository Structure
 
-Main files:
+The Python source code is organized under `src/`. The repository root keeps a few short entrypoints so the main commands stay simple.
 
-- `train.py`
+- `src/train.py`
   - PPO training entrypoint
   - supports map splits, reward shaping, frame stacking, self-play, and resumed training
-- `env.py`
+- `src/env.py`
   - single-agent wrapper around MetaDrive multi-agent racing
   - contains reward shaping and optional track-guidance shaping
-- `racing_maps.py`
+- `src/racing_maps.py`
   - local track definitions
-  - includes default maps and reconstructed server-style maps
-- `map_splits.py`
+  - includes default maps and reconstructed evaluation-style maps
+- `src/map_splits.py`
   - train / validation / test / server map groupings
-- `opponents.py`
+- `src/opponents.py`
   - scripted and learned opponent loading helpers
-- `eval_local.py`
+- `src/eval_local.py`
   - direct local evaluation against scripted or learned agents
-- `benchmark.py`
+- `src/benchmark.py`
   - repeatable benchmark runner with JSON summaries
-- `track_guidance.py`
+- `src/track_guidance.py`
   - reference-line progress and line-alignment helpers used for training-time shaping
-
-Utility scripts:
-
-- `build_hybrid_launch_submission.py`
-  - wraps a trained submission agent with a short scripted launch phase
-- `build_specialist_submission.py`
-  - utility for packaging specialist variants
-- `export_sb3_checkpoint.py`
-  - exports an SB3 PPO checkpoint to a self-contained submission agent
-
-Experiment scripts:
-
-- `scripts/run_phase4a.sh`
-- `scripts/run_phase4b_server.sh`
-- `scripts/run_phase4c_pace.sh`
-- `scripts/run_phase4d_micro.sh`
-- `scripts/run_phase5_specialists.sh`
-- `scripts/run_phase6_launch_sweep.sh`
-- `scripts/run_phase6b_launch_micro.sh`
-- `scripts/run_phase7_action_wrapper.sh`
-- `scripts/run_phase8_league_finetune.sh`
-- `scripts/run_phase8b_league_launch.sh`
-- `scripts/run_phase9_checkpoint_search.sh`
-- `scripts/run_phase10_guidance.sh`
-- `scripts/run_server_benchmark.sh`
 
 ## Environment Setup
 
@@ -96,7 +65,7 @@ Basic training run:
 python train.py --total-timesteps 2000000
 ```
 
-Example of a server-specialized PPO run:
+Example server-focused training run:
 
 ```bash
 python train.py \
@@ -128,12 +97,6 @@ python train.py \
 ```
 
 ## Benchmarking
-
-Run the full server benchmark for a trained agent:
-
-```bash
-bash scripts/run_server_benchmark.sh agents/agent_example_server_run
-```
 
 Direct benchmark examples:
 
@@ -168,25 +131,6 @@ python eval_local.py --agent-dirs agents/agent_example_server_run
 python eval_local.py --agent-dirs agents/agent_example_server_run agents/example_agent --mode versus
 python eval_local.py --agent-dirs agents/agent_example_server_run agents/example_agent --mode versus --map server_map1
 ```
-
-## Best Experimental Direction
-
-The strongest direction in this repository was:
-
-1. Train PPO on the reconstructed server-style maps
-2. Use pace-oriented reward shaping with stronger early progress pressure
-3. Keep entropy low enough to reduce hesitation
-4. Wrap the final policy with a short scripted launch phase
-5. Add track-guidance reward shaping during training to improve line quality
-
-That direction outperformed:
-
-- broader map-generalization branches
-- frame-stacking branches
-- specialist-map routing
-- league fine-tuning against frozen local agents
-- pure checkpoint-search approaches
-- more invasive action postprocessing
 
 ## Notes on Repository Contents
 

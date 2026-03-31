@@ -9,9 +9,9 @@ import gymnasium
 import numpy as np
 from metadrive.envs.marl_envs.marl_racing_env import MultiAgentRacingEnv
 
-from opponents import SCRIPTED_OPPONENTS, build_opponent
-from racing_maps import set_racing_map
-from track_guidance import TrackGuidance
+from .opponents import SCRIPTED_OPPONENTS, build_opponent
+from .racing_maps import set_racing_map
+from .track_guidance import TrackGuidance
 
 OPPONENT_POLICIES = SCRIPTED_OPPONENTS.copy()
 

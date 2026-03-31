@@ -8,7 +8,7 @@ from math import pi
 import numpy as np
 from metadrive.component.pg_space import Parameter
 
-from racing_maps import TRACK_SPECS
+from .racing_maps import TRACK_SPECS
 
 
 def _wrap_angle(angle: float) -> float:
