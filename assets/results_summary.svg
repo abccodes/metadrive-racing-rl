@@ -1,0 +1,36 @@
+<svg width="980" height="430" viewBox="0 0 980 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="980" height="430" rx="20" fill="#0B1020"/>
+  <text x="40" y="52" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">
+    Local Server+Learned Benchmark Progression
+  </text>
+  <text x="40" y="82" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="16">
+    Win rate is shown by bar length. Speed@100 and mean arrival step are annotated for the strongest stages.
+  </text>
+
+  <text x="40" y="140" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Baseline PPO</text>
+  <rect x="240" y="118" width="620" height="26" rx="13" fill="#172036"/>
+  <rect x="240" y="118" width="274" height="26" rx="13" fill="#3B82F6"/>
+  <text x="878" y="137" text-anchor="end" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="16">win_rate = 0.442</text>
+
+  <text x="40" y="205" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Tuned PPO</text>
+  <rect x="240" y="183" width="620" height="26" rx="13" fill="#172036"/>
+  <rect x="240" y="183" width="310" height="26" rx="13" fill="#06B6D4"/>
+  <text x="878" y="202" text-anchor="end" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="16">win_rate = 0.500</text>
+
+  <text x="40" y="270" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Launch-Wrapped PPO</text>
+  <rect x="240" y="248" width="620" height="26" rx="13" fill="#172036"/>
+  <rect x="240" y="248" width="454" height="26" rx="13" fill="#F59E0B"/>
+  <text x="878" y="267" text-anchor="end" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="16">win_rate = 0.733 | speed@100 = 74.16 | arrival_step = 754.44</text>
+
+  <text x="40" y="335" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600">Track-Guided PPO</text>
+  <rect x="240" y="313" width="620" height="26" rx="13" fill="#172036"/>
+  <rect x="240" y="313" width="460" height="26" rx="13" fill="#22C55E"/>
+  <text x="878" y="332" text-anchor="end" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="16">win_rate = 0.742 | speed@100 = 76.04 | arrival_step = 743.75</text>
+
+  <line x1="240" y1="368" x2="860" y2="368" stroke="#334155" stroke-width="2"/>
+  <text x="240" y="392" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="13">0.0</text>
+  <text x="395" y="392" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="13">0.25</text>
+  <text x="550" y="392" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="13">0.50</text>
+  <text x="705" y="392" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="13">0.75</text>
+  <text x="850" y="392" text-anchor="end" fill="#64748B" font-family="Arial, Helvetica, sans-serif" font-size="13">1.0 win rate</text>
+</svg>
