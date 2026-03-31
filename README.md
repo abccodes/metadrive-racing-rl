@@ -2,8 +2,6 @@
 
 Reinforcement learning experiments for multi-agent racing in the MetaDrive environment, focused on training competitive continuous-control racing agents and evaluating them against scripted and learned opponents.
 
-![MetaDrive Logo](https://github.com/metadriverse/metadrive/raw/main/documentation/source/figs/logo-horizon.png)
-
 This project is built around the MetaDrive / MetaDrive Arena ecosystem:
 
 - MetaDrive Arena: https://github.com/VAIL-UCLA/MetaDrive-Arena
@@ -185,18 +183,3 @@ python eval_local.py --agent-dirs agents/agent_example_server_run
 python eval_local.py --agent-dirs agents/agent_example_server_run agents/example_agent --mode versus
 python eval_local.py --agent-dirs agents/agent_example_server_run agents/example_agent --mode versus --map server_map1
 ```
-
-## Notes on Repository Contents
-
-This repository is structured as a clean public code release.
-
-Excluded from version control:
-
-- local checkpoints
-- benchmark outputs
-- logs
-- local submission artifacts
-- report drafts
-- large model files
-
-The code is intended to document the training and evaluation workflow, not to archive every local artifact generated during experimentation.
