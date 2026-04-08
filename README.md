@@ -8,7 +8,7 @@ This project is built around the MetaDrive / MetaDrive Arena ecosystem:
 
 ## Project Summary
 
-This repository contains a full training and evaluation pipeline for MetaDrive racing. The final approach in this repository placed 5th out of 70 students in the course competition.
+This repository contains a full training and evaluation pipeline for MetaDrive racing. The final approach in this repository placed 5th out of 94 students in the course competition.
 
 The repository includes:
 
